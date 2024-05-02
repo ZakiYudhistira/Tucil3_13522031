@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 class Main {
     public static void main(String[] args){
+        long start_memory = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         Scanner io_scan = new Scanner(System.in);
 
         System.out.print("Enter your starting word : ");
@@ -37,9 +38,6 @@ class Main {
             }
         }
 
-        // for(Map.Entry<String, Boolean> entry : main_dict.entrySet()){
-        //     System.out.println(entry);
-        // }
         System.out.print("Enter your target word : ");
         String second_word = io_scan.nextLine().toUpperCase();
 
@@ -57,6 +55,10 @@ class Main {
             }
         }
 
+        long end_memory = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        long actualMemUsed=end_memory-start_memory;
+
+        System.out.println(actualMemUsed);
         io_scan.close();
     }
 }
