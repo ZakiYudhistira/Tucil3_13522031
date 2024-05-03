@@ -8,4 +8,8 @@ public class Return {
         path = new ArrayList<>(res);
         exec_time = time;
     }
+
+    public String[] getPath(){return path;}
+    public long getExecTime(){return exec_time;}
+
 }
