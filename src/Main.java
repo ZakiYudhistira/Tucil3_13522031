@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,11 +12,13 @@ class Main {
         System.out.print("Enter your starting word : ");
         String first_word = io_scan.nextLine().toUpperCase();
 
-        String dict_dir = "src/Dictionary/source.txt";
+        String dict_dir = "src/Dictionary/words.txt";
         
         Loader load = new Loader();
 
         Map<String, Boolean> main_dict = new HashMap<>();
+
+        UCS algorithm = new UCS();
 
         try {
             main_dict = load.loadDictionary(first_word.length(), dict_dir);
@@ -54,6 +57,22 @@ class Main {
                 second_word = io_scan.nextLine().toUpperCase();
             }
         }
+
+        main_dict.put(first_word.toUpperCase(), true);
+
+        long start = System.currentTimeMillis();
+
+        try {
+            ArrayList<String> res = algorithm.compute(first_word.toUpperCase(), second_word.toUpperCase(), main_dict);
+            System.out.println(res);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        // Path first = new Path(first_word.toUpperCase(), null);
+        // ArrayList<Path> temp = new  ArrayList<>(algorithm.getAdjacentNode(first, main_dict));
+        long runtime = System.currentTimeMillis() - start;
+
+        System.out.println(runtime);
 
         long end_memory = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         long actualMemUsed=end_memory-start_memory;

@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 public class Return {
-    public String path[];
+    public ArrayList<String> path;
     public long exec_time;
 
-    Return(String res[], long time){
-        path = res;
+    Return(ArrayList<String> res, long time){
+        path = new ArrayList<>(res);
         exec_time = time;
     }
 }
