@@ -9,7 +9,7 @@ public class Return {
         exec_time = time;
     }
 
-    public String[] getPath(){return path;}
+    public ArrayList<String> getPath(){return path;}
     public long getExecTime(){return exec_time;}
 
 }
