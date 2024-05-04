@@ -1,4 +1,4 @@
-public class Path {
+public class Path implements Comparable<Path>{
     public String path;
     public Path predecessor;
 
@@ -15,5 +15,9 @@ public class Path {
             }
         }
         return count;
+    }
+
+    public int compareTo(Path other) {
+        return path.compareTo(other.path);
     }
 }
