@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 class Main {
+    // Main program
     public static void main(String[] args){
         long start_memory = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         Scanner io_scan = new Scanner(System.in);
@@ -18,7 +19,7 @@ class Main {
 
         Map<String, Boolean> main_dict = new HashMap<>();
 
-        UCS algorithm = new UCS();
+        AStar algorithm = new AStar();
 
         try {
             main_dict = load.loadDictionary(first_word.length(), dict_dir);
@@ -68,8 +69,6 @@ class Main {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-        // Path first = new Path(first_word.toUpperCase(), null);
-        // ArrayList<Path> temp = new  ArrayList<>(algorithm.getAdjacentNode(first, main_dict));
         long runtime = System.currentTimeMillis() - start;
 
         System.out.println(runtime);

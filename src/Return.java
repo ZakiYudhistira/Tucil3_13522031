@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Return {
+    // Return class, to be displayed to the user
     public ArrayList<String> path;
     public long exec_time;
 

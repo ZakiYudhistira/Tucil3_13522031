@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Loader {
+    // Dictionary loading functions
     public Map<String, Boolean> loadDictionary(Integer string_length, String dict_path) throws FileNotFoundException{
         Map<String, Boolean> map = new HashMap<>();
             File file = new File(dict_path);
