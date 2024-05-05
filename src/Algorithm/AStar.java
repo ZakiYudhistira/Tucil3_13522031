@@ -1,8 +1,13 @@
+package Algorithm;
 import java.util.*;
+import DataStructs.*;
+
 
 public class AStar extends NodeProcessing implements Compute {
     
-    public ArrayList<String> compute(String startString, String endString, Map<String, Boolean> dictionary) throws Exception {
+    public ArrayRet compute(String startString, String endString, Map<String, Boolean> dictionary) throws Exception {
+        int count = 0;
+        
         Path first = new Path(startString, null); 
         
         AStarQueue queue = new AStarQueue(startString, endString);
@@ -13,15 +18,20 @@ public class AStar extends NodeProcessing implements Compute {
 
         while(!queue.isEmpty()){
         // Node processing algorithm
+            count++;
             Path process = queue.poll();
             if(process.path.equals(endString)){
-                return getPath(startString, process);
+                return new ArrayRet(count, getPath(startString, process));
             } else {
                 queue.addAll(getAdjacentNode(process, dictionary));
             }
         }
 
         throw new NoPossiblePath();
+    }
+
+    public void printStatus(){
+        System.out.println("Running the A* Algorithm...");
     }
 }
 

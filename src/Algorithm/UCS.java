@@ -1,8 +1,12 @@
+package Algorithm;
 import java.util.*;
+
+import DataStructs.ArrayRet;
+import DataStructs.Path;
 // This is the UCS implementation
 public class UCS extends NodeProcessing implements Compute {
-    public ArrayList<String> compute(String first_word, String second_word, Map<String, Boolean> dictionary) throws Exception{
-        
+    public ArrayRet compute(String first_word, String second_word, Map<String, Boolean> dictionary) throws Exception{
+        int count = 0;
         Path first = new Path(first_word, null); 
         // Initiates the first path
         UCSQueue queue = new UCSQueue(second_word);
@@ -13,8 +17,9 @@ public class UCS extends NodeProcessing implements Compute {
         while(!queue.isEmpty()){
         // Node processing algorithm
             Path process = queue.poll();
+            count++;
             if(process.path.equals(second_word)){
-                return getPath(first_word, process);
+                return new ArrayRet(count, getPath(first_word, process));
             } else {
                 queue.addAll(getAdjacentNode(process, dictionary));
             }
@@ -22,6 +27,10 @@ public class UCS extends NodeProcessing implements Compute {
 
         throw new NoPossiblePath();
         // Throws exception if there are no possible path
+    }
+
+    public void printStatus(){
+        System.out.println("Running the Uniform Cost Search Algorithm...");
     }
 }
 

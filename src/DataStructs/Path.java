@@ -1,9 +1,10 @@
+package DataStructs;
 public class Path implements Comparable<Path>{
     // Linked list implementation for path result
     public String path;
     public Path predecessor;
 
-    Path(String path, Path pred){
+    public Path(String path, Path pred){
         this.path = path;
         this.predecessor = pred;
     }

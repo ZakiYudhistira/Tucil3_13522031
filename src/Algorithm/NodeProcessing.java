@@ -1,5 +1,8 @@
+package Algorithm;
 import java.util.ArrayList;
 import java.util.Map;
+
+import DataStructs.*;
 
 public class NodeProcessing {
     // Node processing library
@@ -7,10 +10,12 @@ public class NodeProcessing {
     // Returns unvisited adjacent nodes
         ArrayList<Path> ret = new ArrayList<>();
         for(Map.Entry<String, Boolean> key : dictionary.entrySet()){ // Add a visited node
-            if(!key.getValue()){
-                if(path.getDistanceFrom(key.getKey()) == 1){
-                    key.setValue(true);
-                    ret.add(new Path(key.getKey(), path));
+            if(key.getKey().length() == path.path.length()){
+                if(!key.getValue()){
+                    if(path.getDistanceFrom(key.getKey()) == 1){
+                        key.setValue(true);
+                        ret.add(new Path(key.getKey(), path));
+                    }
                 }
             }
         }

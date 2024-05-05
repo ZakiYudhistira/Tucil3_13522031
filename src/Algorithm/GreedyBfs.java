@@ -1,20 +1,24 @@
+package Algorithm;
 import java.util.*;
+
+import DataStructs.ArrayRet;
+import DataStructs.Path;
 
 // Greedy best first search algorithm implementation
 
 public class GreedyBfs extends NodeProcessing implements Compute {
-    public ArrayList<String> compute(String first_word, String second_word, Map<String, Boolean> dictionary) throws Exception {
+    public ArrayRet compute(String first_word, String second_word, Map<String, Boolean> dictionary) throws Exception {
         // Compute interface implementation
         Path first_path = new Path(first_word, null);
 
         ArrayList<Path> res = new ArrayList<>();
-
-        ArrayList<String> ret = handleGreedyBFS(first_word, first_path, second_word, dictionary, res);
+        
+        ArrayRet ret = handleGreedyBFS(first_word, first_path, second_word, dictionary, res, 0);
 
         return ret;
     }
 
-    public ArrayList<String> handleGreedyBFS(String start_word, Path path_to_be_processed, String goal_path, Map<String, Boolean> dictionary, ArrayList<Path> result) throws Exception{
+    public ArrayRet handleGreedyBFS(String start_word, Path path_to_be_processed, String goal_path, Map<String, Boolean> dictionary, ArrayList<Path> result, int count) throws Exception{
         // Recursive greedy bfs function
         ArrayList<Path> next_nodes = getAdjacentNode(path_to_be_processed, dictionary); // Retrieve the next nodes
 
@@ -26,16 +30,16 @@ public class GreedyBfs extends NodeProcessing implements Compute {
 
         result.add(path_to_be_processed);
 
+        count++;
         if(next_node.path.equals(goal_path)){ // If a match is found, get the result array and return
             result.add(next_node);
             ArrayList<String> ret = new ArrayList<>();
             for(Path node : result){
                 ret.add(node.path);
             }
-            return ret;
+            return new ArrayRet(count, ret);
         }
-
-        return handleGreedyBFS(start_word, next_node, goal_path, dictionary, result); // if not, the algorithm continues recursively
+        return handleGreedyBFS(start_word, next_node, goal_path, dictionary, result, count); // if not, the algorithm continues recursively
     }
 
     public Path nextNode(String target, ArrayList<Path> node_list){ // Function to decide the next note, or f(n)
@@ -48,5 +52,9 @@ public class GreedyBfs extends NodeProcessing implements Compute {
         }
 
         return shortest;
+    }
+
+    public void printStatus(){
+        System.out.println("Running the Greedy Breadth First Search Algorithm...");
     }
 }
