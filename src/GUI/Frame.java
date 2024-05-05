@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.File;
 import java.util.*;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import DataStructs.*;
 import Util.*;
 
-// import Algorithm.*;
+// The GUI Setup
 
 public class Frame extends JFrame implements ActionListener{
     JButton acc_button;
@@ -29,27 +29,16 @@ public class Frame extends JFrame implements ActionListener{
     Boolean astar = false;
     Boolean greedy = false;
     Boolean loaded_dict = false;
-
-    public static void main(String[] args){
-        ArrayList<String> tes = new ArrayList<>();
-        tes.add("GAY");
-        tes.add("FAY");
-        tes.add("RAY");
-        long mem = 900;
-        long time = 90000;
-        ArrayRet ppp = new ArrayRet(10, tes);
-
-        Return ret = new Return(ppp, 900, 90000);
-
-        ResultFrame res = new ResultFrame(ret, 0x272829);
-        // Frame j = new Frame("Giga Chad World Solver", 0x272829);
-    }
     
-    Frame(String title, int hex){
+    public Frame(String title, int hex){ // Main menu setup
         super();
+
+        File workingDirectory = new File(System.getProperty("user.dir") + "/src/Dictionary");
+
         JFileChooser select = new JFileChooser();
         select.setDialogTitle("Select your dictionary file");
         select.setFileFilter(new FileNameExtensionFilter(".txt", "txt", "text"));
+        select.setCurrentDirectory(workingDirectory);
 
         try {
             int response = select.showOpenDialog(null);
@@ -192,7 +181,7 @@ public class Frame extends JFrame implements ActionListener{
     }
 
     // @Override
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e){ // Button and radio button handling
         Return ret;
         if(e.getSource() == ucs_button){
             ucs = true;
@@ -224,24 +213,18 @@ public class Frame extends JFrame implements ActionListener{
                     throw new Exception("The words are not recognized");
                 }
 
+                if(first_word.equals(second_word)){
+                    throw new Exception("Both words can't be the same");
+                }
+
                 Run r = new Run(dictionary, first_word, second_word);
                 if(ucs){
-                    ret = r.runUCS();
-                    System.out.println(ret.mem_usage);
-                    System.out.println(ret.words_processed);
-                    System.out.println(ret.path);
+                    ResultFrame res = new ResultFrame(r.runUCS(), 0x272829, "Uniform Cost Search");
                 } else if (astar) {
-                    ret = r.runAStar();
-                    System.out.println(ret.mem_usage);
-                    System.out.println(ret.words_processed);
-                    System.out.println(ret.path);
+                    ResultFrame res = new ResultFrame(ret = r.runAStar(), 0x272829, "A*");
                 } else if (greedy) {
-                    ret = r.runBFS();
-                    System.out.println(ret.mem_usage);
-                    System.out.println(ret.words_processed);
-                    System.out.println(ret.path);
+                    ResultFrame res = new ResultFrame(r.runBFS(), 0x272829, "Greedy Best First Search");
                 }
-                
             } catch (Exception ex){
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -249,16 +232,102 @@ public class Frame extends JFrame implements ActionListener{
     }
 }
 
-class ResultFrame extends JFrame implements ActionListener {
+class ResultFrame extends JFrame {
     
-    ResultFrame(Return output, int hex){
+    ResultFrame(Return output, int hex, String algorithm_name){
         super();
+
+        JLabel title_label = new JLabel();
+        title_label.setText("Result");
+        title_label.setFont(new Font("Nunito", Font.BOLD, 62));
+        title_label.setForeground(Color.WHITE);
+
+        JPanel title_panel = new JPanel();
+        title_panel.setBounds(0, 0, 580, 70);
+        title_panel.setBackground(new Color(hex));
+
+        title_panel.add(title_label);
+
+        JLabel al_label = new JLabel();
+        al_label.setFont(new Font("Nunito", Font.ITALIC, 14));
+        al_label.setForeground(Color.WHITE);
+        al_label.setText("Using the " + algorithm_name + " algorithm");
+
+        JPanel al_panel = new JPanel();
+        al_panel.setBounds(0, 70, 580, 24);
+        al_panel.setBackground(new Color(hex));
+        al_panel.add(al_label);
+
+        JLabel count_label = new JLabel();
+        count_label.setFont(new Font("Nunito", Font.PLAIN, 14));
+        count_label.setForeground(Color.WHITE);
+        count_label.setText(Long.toString(output.words_processed) + " Words Processed - ");
+
+        JLabel time_label = new JLabel();
+        time_label.setFont(new Font("Nunito", Font.PLAIN, 14));
+        time_label.setForeground(Color.WHITE);
+        time_label.setText(Long.toString(output.exec_time) + "ms Time taken - ");
+
+        JLabel mem_label = new JLabel();
+        mem_label.setFont(new Font("Nunito", Font.PLAIN, 14));
+        mem_label.setForeground(Color.WHITE);
+        mem_label.setText(Long.toString(output.mem_usage / 1000) + "kB memory used");
+
+        JPanel res_panel = new JPanel();
+        res_panel.setBounds(0, 105, 580, 24);
+        res_panel.setBackground(new Color(hex));
+
+        res_panel.add(count_label);
+        res_panel.add(time_label);
+        res_panel.add(mem_label);
+
+        JPanel res_title = new JPanel();
+        res_title.setBounds(0, 130, 580, 30);
+        res_title.setBackground(new Color(hex));
+
+        JLabel res_label = new JLabel();
+        res_label.setFont(new Font("Nunito", Font.PLAIN, 20));
+        res_label.setForeground(Color.WHITE);
+        res_label.setText("==Path found==");
+
+        res_title.add(res_label);
+
+        JPanel path_panel = new JPanel();
+        path_panel.setBounds(10, 165, 550, 580);
+        path_panel.setBackground(new Color(hex));
+
+
+        boolean first = true;
+        for(int i = 0 ; i < output.path.size() ; i++){
+            JLabel label = new JLabel();
+            if(first){
+                label.setText(output.path.get(i));
+                label.setFont(new Font("Nunito", Font.BOLD, 20));
+                first = false;
+                label.setForeground(Color.RED);
+            } else if (i == output.path.size() - 1){
+                label.setText(" → " + output.path.get(i));
+                label.setFont(new Font("Nunito", Font.BOLD, 20));
+                label.setText(" → " + output.path.get(i));
+                label.setForeground(Color.BLUE);
+            } else {
+                label.setText(" → " + output.path.get(i));
+                label.setFont(new Font("Nunito", Font.PLAIN, 20));
+                label.setForeground(Color.GREEN);
+            }
+            path_panel.add(label);
+        }
+
         this.setSize(580, 580);
         this.getContentPane().setBackground(new Color(hex));
+        this.setLayout(null);
+
+        this.add(title_panel);
+        this.add(res_panel);
+        this.add(res_title);
+        this.add(path_panel);
+        this.add(al_panel);
+
         this.setVisible(true);
-    }
-
-    public void actionPerformed(ActionEvent e){
-
     }
 }
