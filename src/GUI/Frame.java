@@ -182,7 +182,6 @@ public class Frame extends JFrame implements ActionListener{
 
     // @Override
     public void actionPerformed(ActionEvent e){ // Button and radio button handling
-        Return ret;
         if(e.getSource() == ucs_button){
             ucs = true;
             astar = false;
@@ -221,7 +220,7 @@ public class Frame extends JFrame implements ActionListener{
                 if(ucs){
                     ResultFrame res = new ResultFrame(r.runUCS(), 0x272829, "Uniform Cost Search");
                 } else if (astar) {
-                    ResultFrame res = new ResultFrame(ret = r.runAStar(), 0x272829, "A*");
+                    ResultFrame res = new ResultFrame(r.runAStar(), 0x272829, "A*");
                 } else if (greedy) {
                     ResultFrame res = new ResultFrame(r.runBFS(), 0x272829, "Greedy Best First Search");
                 }
