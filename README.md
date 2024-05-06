@@ -39,3 +39,7 @@ Few Features:
 ## Room for Improvement
 Room for improvement:
 - The memory used could be innacurate since if the program has a cache in the memory, the memory used would be zero since it took the cached state as a starting point
+
+## Author
+Made By :
+- Zaki Yudhistira Candra (13522031)
