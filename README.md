@@ -1,89 +1,40 @@
-# Project Name
-> Outline a brief description of your project.
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
+# Word Ladder Solver
+> This is a java implemented word ladder solver, inspired from the word ladder game. This program takes 2 words as an input: a start word and an end word. It then finds the shortest transformation sequence between the two, where each transformation sequence involves with only changing one letter at a time, with the constraint that every intermediate word must be a valid english word
 
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Screenshots](#screenshots)
 * [Setup](#setup)
-* [Usage](#usage)
-* [Project Status](#project-status)
+* [How to use](#how-to-use)
 * [Room for Improvement](#room-for-improvement)
-* [Acknowledgements](#acknowledgements)
-* [Contact](#contact)
-<!-- * [License](#license) -->
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
-
+- The program is implemented in java
+- You can load your own custom dictionary in txt
+- This program is built to implement few path finding algorithm such as : the A*, Greedy BFS, and Uniform Cost Search
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- Java Version 16.0.2
 
-
-## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
-
-
-## Screenshots
-![Example screenshot](./img/screenshot.png)
-<!-- If you have screenshots you'd like to share, include them here. -->
-
+Few Features:
+- Interactive GUI
+- Fast runtime
+- As long as your system has a JVM, it can run it
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
+- Make sure that Java is installed in your computer, with a minimum bersion of JDK 16.02.2
+- The program is ran on windows 11, other platform have not been tested yet
+- The 'Nunito' font has to be installed
 
-Proceed to describe how to install / setup one's local environment / get started with the project.
-
-
-## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
-
-
-## Project Status
-Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why.
-
+## How to use
+1. Run the JAR file, or run the compile.bat batch and then run the run.bat batchf file
+2. Choose an algorithm first
+3. Enter your first and second word
+4. Click the compute button
+5. Wait for the result
 
 ## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
 Room for improvement:
-- Improvement to be done 1
-- Improvement to be done 2
-
-To do:
-- Feature to be added 1
-- Feature to be added 2
-
-
-## Acknowledgements
-Give credit here.
-- This project was inspired by...
-- This project was based on [this tutorial](https://www.example.com).
-- Many thanks to...
-
-
-## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
-
-
-<!-- Optional -->
-<!-- ## License -->
-<!-- This project is open source and available under the [... License](). -->
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
+- The memory used could be innacurate since if the program has a cache in the memory, the memory used would be zero since it took the cached state as a starting point
