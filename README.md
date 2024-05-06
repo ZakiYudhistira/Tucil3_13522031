@@ -29,11 +29,12 @@ Few Features:
 - The 'Nunito' font has to be installed
 
 ## How to use
-1. Run the JAR file, or run the compile.bat batch and then run the run.bat batchf file
-2. Choose an algorithm first
-3. Enter your first and second word
-4. Click the compute button
-5. Wait for the result
+1. Run the JAR file, or run the compile.bat batch and then run the run.bat batch file
+2. Choose your dictionary
+3. Choose an algorithm first
+4. Enter your first and second word
+5. Click the compute button
+6. Wait for the result
 
 ## Room for Improvement
 Room for improvement:
